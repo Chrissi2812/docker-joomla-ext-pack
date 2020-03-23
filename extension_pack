@@ -13,4 +13,4 @@ for ((i=1; i<=wwCount; i++)); do
         FILES="$FILES $wwExtracted"
 done
 
-zip -r "$EXT_NAME_$JOOMLA_VERSION.x_$VERSION.zip" $FILES
+zip -r "${EXT_NAME}_${JOOMLA_VERSION}.x_${VERSION}.zip" $FILES
