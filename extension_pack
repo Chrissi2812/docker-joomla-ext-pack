@@ -9,7 +9,6 @@ SCRIPTFILE=`xmllint --xpath '(//extension/scriptfile)/text()' $EXT_NAME.xml`
 
 FILES="$SCRIPTFILE"
 wwCount=`xmllint --xpath 'count(//extension/files/*)' $EXT_NAME.xml`
-echo $wwCount
 for ((i=1; i<=wwCount; i++)); do
         wwExtracted=`xmllint --xpath '(//extension/files/*)['"$i"']/text()' $EXT_NAME.xml`
         FILES="$FILES $wwExtracted"
