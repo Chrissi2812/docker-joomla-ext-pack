@@ -1,3 +1,4 @@
 FROM alpine
-RUN apk update
-RUN apk add rsync openssh
+
+RUN apk add --no-cache \
+    rsync openssh
