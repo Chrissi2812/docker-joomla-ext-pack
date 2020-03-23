@@ -2,16 +2,16 @@
 
 EXT_NAME=$1
 
-VERSION=`xmllint --xpath 'string(/extension/version)' $EXT_NAME.xml`
-JOOMLA_VERSION=`xmllint --xpath 'substring(/extension/@version, 1, 1)' $EXT_NAME.xml`
+VERSION=`xmllint --xpath 'string(//extension/version)' $EXT_NAME.xml`
+JOOMLA_VERSION=`xmllint --xpath 'substring(//extension/@version, 1, 1)' $EXT_NAME.xml`
 
-SCRIPTFILE=`xmllint --xpath '(/extension/scriptfile)/text()' $EXT_NAME.xml`
+SCRIPTFILE=`xmllint --xpath '(//extension/scriptfile)/text()' $EXT_NAME.xml`
 
 FILES="$SCRIPTFILE"
-wwCount=`xmllint --xpath 'count(/extension/files/*)' $EXT_NAME.xml`
+wwCount=`xmllint --xpath 'count(//extension/files/*)' $EXT_NAME.xml`
 echo $wwCount
 for ((i=1; i<=wwCount; i++)); do
-        wwExtracted=`xmllint --xpath '(/extension/files/*)['"$i"']/text()' $EXT_NAME.xml`
+        wwExtracted=`xmllint --xpath '(//extension/files/*)['"$i"']/text()' $EXT_NAME.xml`
         FILES="$FILES $wwExtracted"
 done
 
