@@ -5,7 +5,9 @@ EXT_NAME=$1
 VERSION=`xmllint --xpath 'string(/extension/version)' $EXT_NAME.xml`
 JOOMLA_VERSION=`xmllint --xpath 'substring(/extension/@version, 1, 1)' $EXT_NAME.xml`
 
-FILES=""
+SCRIPTFILE=`xmllint --xpath '(/extension/scriptfile)/text()' $EXT_NAME.xml`
+
+FILES="$SCRIPTFILE"
 wwCount=`xmllint --xpath 'count(/extension/files/*)' $EXT_NAME.xml`
 echo $wwCount
 for ((i=1; i<=wwCount; i++)); do
