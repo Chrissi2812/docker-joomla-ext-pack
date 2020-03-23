@@ -17,7 +17,7 @@ done
 MEDIA_FILES_FOLDER=`xmllint --xpath 'string(//extension/media/@folder)' $EXT_NAME.xml`
 wwCount=`xmllint --xpath 'count(//extension/media/*)' $EXT_NAME.xml`
 for ((i=1; i<=wwCount; i++)); do
-        wwExtracted=`xmllint --xpath '(//extension/files/*)['"$i"']/text()' $EXT_NAME.xml`
+        wwExtracted=`xmllint --xpath '(//extension/media/*)['"$i"']/text()' $EXT_NAME.xml`
         FILES="$FILES ${MEDIA_FILES_FOLDER}/${wwExtracted}"
 done
 
