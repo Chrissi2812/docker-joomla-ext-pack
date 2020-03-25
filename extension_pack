@@ -24,6 +24,23 @@ for ((j=1; j<=FILE_COUNTS; j++)); do
   done
 done
 
+
+FILE_COUNTS=`xmllint --xpath 'count(//extension/administration/files)' $EXT_NAME.xml`
+for ((j=1; j<=FILE_COUNTS; j++)); do
+  FILES_FOLDER=`xmllint --xpath 'string((//extension/administration/files)['"$j"']/@folder)' $EXT_NAME.xml`
+
+  if  [ ! -z "$FILES_FOLDER" ]; then
+    FILES_FOLDER="$FILES_FOLDER/"
+  fi
+
+  wwCount=`xmllint --xpath 'count((//extension/administration/files)['"$j"']/*)' $EXT_NAME.xml`
+  for ((i=1; i<=wwCount; i++)); do
+          wwExtracted=`xmllint --xpath '((//extension/administration/files)['"$j"']/*)['"$i"']/text()' $EXT_NAME.xml`
+          FILES="$FILES ${FILES_FOLDER}${wwExtracted}"
+  done
+done
+
+
 MEDIA_FILES_FOLDER=`xmllint --xpath 'string(//extension/media/@folder)' $EXT_NAME.xml`
 wwCount=`xmllint --xpath 'count(//extension/media/*)' $EXT_NAME.xml`
 for ((i=1; i<=wwCount; i++)); do
