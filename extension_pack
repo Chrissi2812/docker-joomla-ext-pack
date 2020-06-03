@@ -7,9 +7,11 @@ VERSION=$(git describe 2> /dev/null)
 
 if [ -z "$VERSION" ]; then
   # No tagged release found: use version in manifest file
+  echo Using Manifest Releases
   VERSION=`xmllint --xpath 'string(//extension/version)' $EXT_NAME.xml`
 else
     # Tagged release found: update version number in manifest file
+    echo Using Tagged Releases
   xmllint --shell $EXT_NAME.xml > /dev/null << EOF
 cd /extension/version
 set $VERSION
