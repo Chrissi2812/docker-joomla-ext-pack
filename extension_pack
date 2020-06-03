@@ -2,7 +2,21 @@
 
 EXT_NAME=$1
 
-VERSION=`xmllint --xpath 'string(//extension/version)' $EXT_NAME.xml`
+# Check for tagged releases
+VERSION=$(git describe 2> /dev/null)
+
+if [ -z "$VERSION" ]; then
+  # No tagged release found: use version in manifest file
+  VERSION=`xmllint --xpath 'string(//extension/version)' $EXT_NAME.xml`
+else
+    # Tagged release found: update version number in manifest file
+  xmllint --shell $EXT_NAME.xml > /dev/null << EOF
+cd /extension/version
+set $VERSION
+save
+EOF
+fi
+
 JOOMLA_VERSION=`xmllint --xpath 'substring(//extension/@version, 1, 1)' $EXT_NAME.xml`
 
 SCRIPTFILE=`xmllint --xpath '(//extension/scriptfile)/text()' $EXT_NAME.xml`
