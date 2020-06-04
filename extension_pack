@@ -14,7 +14,7 @@ else
     echo Using Tagged Releases
   xmllint --shell $EXT_NAME.xml > /dev/null << EOF
 cd /extension/version
-set $VERSION
+set ${VERSION##*v}
 save
 EOF
 fi
@@ -64,4 +64,4 @@ for ((i=1; i<=wwCount; i++)); do
         FILES="$FILES ${MEDIA_FILES_FOLDER}/${wwExtracted}"
 done
 
-zip -r "${EXT_NAME}_${JOOMLA_VERSION}.x_${VERSION}.zip" $FILES $EXT_NAME.xml
+zip -r "${EXT_NAME}_${JOOMLA_VERSION}.x_${VERSION##*v}.zip" $FILES $EXT_NAME.xml
